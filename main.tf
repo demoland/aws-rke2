@@ -3,7 +3,7 @@ locals {
   public_subnets = data.terraform_remote_state.vpc.outputs.public_subnets
   cluster_name   = data.terraform_remote_state.vpc.outputs.cluster_name
   tags           = data.terraform_remote_state.vpc.outputs.vpc_tags
-  ami_id         = data.aws_ami.rhel9.image_id
+  ami_id         = "ami-078cbc4c2d057c244"
 
   private_key = var.private_key
   public_key  = var.public_key
@@ -15,30 +15,14 @@ locals {
   }
 }
 
-data "aws_ami" "rhel9" {
-  most_recent = true
-  owners      = ["219670896067"] # owner is specific to aws gov cloud
-
-  filter {
-    name   = "name"
-    values = ["RHEL-9*"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-}
-
-resource "local_file" "ssh_pem" {
-  filename        = "${local.cluster_name}.pem"
-  content         = local.private_key
-  file_permission = "0600"
-}
+# resource "local_file" "ssh_pem" {
+#   filename        = "${local.cluster_name}.pem"
+#   content         = local.private_key
+#   file_permission = "0600"
+# }
 
 module "rke2" {
-  source = "git::https://github.com/shebashio/terraform-aws-rke.git?ref=v2.0.1"
+  source = "git::https://github.com/demoland/terraform-aws-rke2.git"
 
   cluster_name  = local.cluster_name
   unique_suffix = false
@@ -68,7 +52,7 @@ eot
 # Generic agent pool
 #
 module "agents" {
-  source = "git::https://github.com/shebashio/terraform-aws-rke.git//modules/agent-nodepool?ref=v2.0.1"
+  source = "git::https://github.com/demoland/terraform-aws-rke.git//modules/agent-nodepool"
 
   name    = "generic"
   vpc_id  = local.vpc_id
