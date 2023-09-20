@@ -22,7 +22,7 @@ locals {
 # }
 
 module "rke2" {
-  source = "git::https://github.com/demoland/terraform-aws-rke2.git"
+  source = "git::https://github.com/demoland/rke2-aws-tf"
 
   cluster_name  = local.cluster_name
   unique_suffix = false
@@ -52,7 +52,7 @@ eot
 # Generic agent pool
 #
 module "agents" {
-  source = "git::https://github.com/demoland/terraform-aws-rke2.git//modules/agent-nodepool"
+  source = "git::https://github.com/demoland/rke2-aws-tf//modules/agent-nodepool"
 
   name    = "generic"
   vpc_id  = local.vpc_id
