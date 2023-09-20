@@ -5,8 +5,8 @@ locals {
   tags           = data.terraform_remote_state.vpc.outputs.vpc_tags
   ami_id         = "ami-078cbc4c2d057c244"
 
-  private_key = var.private_key
-  public_key  = var.public_key
+  #private_key = var.private_key
+  public_key = var.public_key
 
   instance_type = "t3a.large"
   ebs_mappings = {
