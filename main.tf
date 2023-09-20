@@ -38,35 +38,6 @@ data "aws_ami" "rhel8" {
   }
 }
 
-data "aws_ami" "centos7" {
-  most_recent = true
-  owners      = ["679593333241"] # owner is specific to aws gov cloud
-
-  filter {
-    name   = "name"
-    values = ["CentOS Linux 7 x86_64 HVM EBS*"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-}
-
-data "aws_ami" "centos8" {
-  most_recent = true
-  owners      = ["679593333241"] # owner is specific to aws gov cloud
-
-  filter {
-    name   = "name"
-    values = ["CentOS Linux 8 x86_64 HVM EBS*"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-}
 
 # Key Pair
 resource "tls_private_key" "ssh" {
