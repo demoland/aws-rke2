@@ -1,8 +1,7 @@
 locals {
   vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
-  public_subnets = data.terraform_remote_state.vpc.outputs.public_subnets
-  cluster_name   = data.terraform_remote_state.vpc.outputs.cluster_name
-  tags           = data.terraform_remote_state.vpc.outputs.vpc_tags
+  public_subnets = data.terraform_remote_state.vpc.outputs.public_subnet_ids
+  cluster_name   = hashi-k8s
   ami_id         = "ami-078cbc4c2d057c244"
 
   #private_key = var.private_key
