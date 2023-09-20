@@ -51,6 +51,7 @@ eot
 #
 # Generic agent pool
 #
+
 module "agents" {
   source = "git::https://github.com/demoland/rke2-aws-tf//modules/agent-nodepool"
 
