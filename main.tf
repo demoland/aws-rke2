@@ -123,7 +123,7 @@ module "vpc" {
 # Server
 #
 module "rke2" {
-  source = "../.."
+  source = "git::https://github.com/demoland/rke2-aws-tf"
 
   cluster_name = local.cluster_name
   vpc_id       = module.vpc.vpc_id
@@ -151,7 +151,7 @@ EOT
 # Generic agent pool
 #
 module "agents" {
-  source = "../../modules/agent-nodepool"
+  source = "git::https://github.com/demoland/rke2-aws-tf//modules/agent-nodepool"
 
   name    = "generic"
   vpc_id  = module.vpc.vpc_id
