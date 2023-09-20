@@ -1,9 +1,23 @@
 locals {
   vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
   public_subnets = data.terraform_remote_state.vpc.outputs.public_subnet_ids
-  cluster_name   = hashi-k8s
+  cluster_name   = "hashi-k8s"
   ami_id         = "ami-078cbc4c2d057c244"
-
+  tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                      = "1"
+    "kubernetes.io/role/internal-elb"             = "1"
+    "kubernetes.io/role/nat"                      = "1"
+    "kubernetes.io/role/node"                     = "1"
+    "kubernetes.io/role/route53"                  = "1"
+    "kubernetes.io/role/vpc"                      = "1"
+    "kubernetes.io/role/elb"                      = "1"
+    "kubernetes.io/role/internal-elb"             = "1"
+    "kubernetes.io/role/nat"                      = "1"
+    "kubernetes.io/role/node"                     = "1"
+    "kubernetes.io/role/route53"                  = "1"
+    "kubernetes.io/role/vpc"                      = "1"
+  }
   #private_key = var.private_key
   public_key = var.public_key
 
