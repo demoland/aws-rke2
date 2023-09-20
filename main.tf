@@ -52,7 +52,7 @@ eot
 # Generic agent pool
 #
 module "agents" {
-  source = "git::https://github.com/demoland/terraform-aws-rke.git//modules/agent-nodepool"
+  source = "git::https://github.com/demoland/terraform-aws-rke2.git//modules/agent-nodepool"
 
   name    = "generic"
   vpc_id  = local.vpc_id
