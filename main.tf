@@ -83,7 +83,7 @@ module "rke2" {
 
   ami                   = data.aws_ami.rhel8.image_id # Note: Multi OS is primarily for example purposes
   ssh_authorized_keys   = [tls_private_key.ssh.public_key_openssh]
-  instance_type         = "t3a.medium"
+  instance_type         = var.instance_type
   controlplane_internal = false # Note this defaults to best practice of true, but is explicitly set to public for demo purposes
   servers               = 1
 

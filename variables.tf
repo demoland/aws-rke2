@@ -12,3 +12,8 @@ variable "subnet_prefix" {
   description = "value of the subnet prefix, Example: 10.88"
   default     = "10.88"
 }
+
+variable "instance_type" {
+  description = "AWS instance type"
+  default     = "t3.large"
+}
