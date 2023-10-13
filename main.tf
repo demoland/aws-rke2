@@ -8,24 +8,9 @@ locals {
   }
 }
 
-data "aws_ami" "rhel7" {
-  most_recent = true
-  owners      = ["309956199498"] # owner is specific to aws gov cloud
-
-  filter {
-    name   = "name"
-    values = ["RHEL-7*"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-}
-
 data "aws_ami" "rhel8" {
   most_recent = true
-  owners      = ["309956199498"] # owner is specific to aws gov cloud
+  owners      = ["309956199498"]
 
   filter {
     name   = "name"
@@ -58,11 +43,11 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "rke2-${local.cluster_name}"
-  cidr = "10.88.0.0/16"
+  cidr = "${var.subnet_prefix}.0.0/16"
 
   azs             = ["${local.aws_region}a", "${local.aws_region}b", "${local.aws_region}c"]
-  public_subnets  = ["10.88.1.0/24", "10.88.2.0/24", "10.88.3.0/24"]
-  private_subnets = ["10.88.101.0/24", "10.88.102.0/24", "10.88.103.0/24"]
+  public_subnets  = ["${var.subnet_prefix}.1.0/24", "${var.subnet_prefix}.2.0/24", "${var.subnet_prefix}.3.0/24"]
+  private_subnets = ["${var.subnet_prefix}.101.0/24", "${var.subnet_prefix}.102.0/24", "${var.subnet_prefix}.103.0/24"]
 
   enable_nat_gateway   = true
   single_nat_gateway   = true
@@ -128,7 +113,7 @@ module "agents" {
   ssh_authorized_keys = [tls_private_key.ssh.public_key_openssh]
   spot                = true
   asg                 = { min : 1, max : 10, desired : 2 }
-  instance_type       = "t3a.large"
+  instance_type       = var.instance_type
 
   # Enable AWS Cloud Controller Manager and Cluster Autoscaler
   enable_ccm        = true
