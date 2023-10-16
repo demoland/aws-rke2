@@ -109,11 +109,12 @@ module "agents" {
   vpc_id  = module.vpc.vpc_id
   subnets = module.vpc.public_subnets # Note: Public subnets used for demo purposes, this is not recommended in production
 
-  ami                 = data.aws_ami.rhel8.image_id # Note: Multi OS is primarily for example purposes
-  ssh_authorized_keys = [tls_private_key.ssh.public_key_openssh]
-  spot                = false
-  asg                 = { min : 2, max : 10, desired : 2 }
-  instance_type       = var.instance_type
+  ami                       = data.aws_ami.rhel8.image_id # Note: Multi OS is primarily for example purposes
+  ssh_authorized_keys       = [tls_private_key.ssh.public_key_openssh]
+  spot                      = false
+  asg                       = { min : 2, max : 10, desired : 2 }
+  instance_type             = var.instance_type
+  wait_for_capacity_timeout = "20m"
 
   # Enable AWS Cloud Controller Manager and Cluster Autoscaler
   enable_ccm        = true
