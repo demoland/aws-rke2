@@ -111,7 +111,7 @@ module "agents" {
 
   ami                 = data.aws_ami.rhel8.image_id # Note: Multi OS is primarily for example purposes
   ssh_authorized_keys = [tls_private_key.ssh.public_key_openssh]
-  spot                = true
+  spot                = false
   asg                 = { min : 2, max : 10, desired : 2 }
   instance_type       = var.instance_type
 
