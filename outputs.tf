@@ -1,7 +1,3 @@
-output "cluster_data" {
-  value = module.rke2.cluster_data
-}
-
 output "cluster_name" {
   value = module.rke2.cluster_name
 }
@@ -16,4 +12,8 @@ output "server_url" {
 
 output "kubeconfig_path" {
   value = module.rke2.kubeconfig_path
+}
+
+output "kubeconfig_path" {
+  value = "aws s3 cp ${module.rke2.kubeconfig_path} ~/.kube/config"
 }
