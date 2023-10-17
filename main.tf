@@ -77,9 +77,10 @@ module "vpc" {
 module "rke2" {
   source = "git::https://github.com/demoland/rke2-aws-tf"
 
-  cluster_name = local.cluster_name
-  vpc_id       = module.vpc.vpc_id
-  subnets      = module.vpc.public_subnets # Note: Public subnets used for demo purposes, this is not recommended in production
+  cluster_name                = local.cluster_name
+  vpc_id                      = module.vpc.vpc_id
+  subnets                     = module.vpc.public_subnets # Note: Public subnets used for demo purposes, this is not recommended in production
+  associate_public_ip_address = true
 
   ami                   = data.aws_ami.rhel8.image_id # Note: Multi OS is primarily for example purposes
   ssh_authorized_keys   = [tls_private_key.ssh.public_key_openssh]
@@ -127,8 +128,7 @@ node-label:
 EOT
 
   cluster_data = module.rke2.cluster_data
-
-  tags = local.tags
+  tags         = local.tags
 }
 
 # For demonstration only, lock down ssh access in production
