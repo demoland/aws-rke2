@@ -87,6 +87,7 @@ module "rke2" {
   instance_type         = var.instance_type
   controlplane_internal = false # Note this defaults to best practice of true, but is explicitly set to public for demo purposes
   servers               = 2
+  rke2_start            = true
 
   # Enable AWS Cloud Controller Manager
   enable_ccm = true
