@@ -14,6 +14,6 @@ output "kubeconfig_path" {
   value = module.rke2.kubeconfig_path
 }
 
-output "kubeconfig_path" {
+output "kubeconfig_cmd" {
   value = "aws s3 cp ${module.rke2.kubeconfig_path} ~/.kube/config"
 }
